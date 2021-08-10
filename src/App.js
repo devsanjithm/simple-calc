@@ -11,9 +11,12 @@ const App = ()=> {
   const [btn,setBtn] = useState("button");
   const[oper,setOper] = useState("btn1");
   const [zero,setZero] = useState("zeros1");
+  const [answer,setAnswer] = useState("");
+  const [ansscreen,setAnsscreen] = useState("calc-screen3");
   
   function handleclick(e) {
-    setResult(result.concat(e.target.name));
+      setResult(result.concat(e.target.name));
+      
     if(result.length>=8){
       setRes("calc-screen1")
     }
@@ -23,21 +26,36 @@ const App = ()=> {
   }
   function backspace() {
     setResult(result.slice(0, result.length - 1))
+    if(result.length>=12){
+      setRes("calc-screen2")
+    }
+    if(result.length>=8 && result.length<12){
+      setRes("calc-screen1")
+    }
+    if(result.length<8){
+      setRes("calc-screen")
+    }
+    setAnswer(answer.slice(0, answer.length - 1))
   }
   function clear() {
     setResult("")
+    setAnswer("")
     setRes("calc-screen")
   }
   function calculate() {
     try {
-      // eslint-disable-next-line
-      setResult(eval(result).toString());
+     
+      setResult("");
+       // eslint-disable-next-line
+      setAnswer(eval(result).toString());
+      
     }
     catch (error) {
-      setResult("Error");
+      setResult("error");
+      setAnswer("");
     }
   }
-  function checkfunction(){
+  function darkmode(){
     var e = document.getElementById("checked").checked
     if(e){
       setCalscreen("calc-app")
@@ -46,6 +64,7 @@ const App = ()=> {
       setBtn("button1")
       setOper("btn2")
       setZero("zeros")
+      setAnsscreen("calc-screen4")
       document.getElementById("mode").innerHTML="Dark mode";
     }else{
       setCalscreen("calc-app1")
@@ -54,20 +73,23 @@ const App = ()=> {
       setBtn("button")
       setOper("btn1")
       setZero("zeros1")
+      setAnsscreen("calc-screen3")
       document.getElementById("mode").innerHTML="Light mode";
     }
   }
+
   return (
     <div>
       
-      <h1>SIMPLE CALC</h1>
+      <h1>SIMPLE CALCULATOR</h1>
     <div className={calscreen}>
       <form className="input">
         <input type="text" id={inputar} className={res} disabled value={result}  />
+        <input type="text" className={ansscreen} disabled value={answer}  />
       </form>
       <div className={key}>
         <button className={zero}  onClick={clear}>AC</button>
-        <button className={zero}  onClick={backspace}>C</button>
+        <button className={zero} onClick={backspace}>C</button>
         <button className={oper} name="%" onClick={handleclick}>%</button>
         <button className={oper}  name="/" onClick={handleclick}>/</button>
 
@@ -95,7 +117,7 @@ const App = ()=> {
     <div className="mg">
       <p id = "mode" >Light mode</p>
        <label className="switch">
-      <input type="checkbox" id="checked" onClick={checkfunction} ></input>
+      <input type="checkbox" id="checked" onClick={darkmode} ></input>
       <span className="slider"></span>
       </label>
       
