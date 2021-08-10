@@ -51,8 +51,8 @@ const App = ()=> {
       
     }
     catch (error) {
-      setResult("error");
-      setAnswer("");
+      setResult("");
+      setAnswer("⚠er");
     }
   }
   function darkmode(){
