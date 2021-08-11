@@ -9,12 +9,13 @@ const App = ()=> {
   const [key,setKey] = useState("keypad1");
   const [inputar,setInputar] = useState("w1");
   const [btn,setBtn] = useState("button");
-  const[oper,setOper] = useState("btn1");
+  const [oper,setOper] = useState("btn1");
   const [zero,setZero] = useState("zeros1");
   const [answer,setAnswer] = useState("");
   const [ansscreen,setAnsscreen] = useState("calc-screen3");
   
   function handleclick(e) {
+    setAnswer("")
       setResult(result.concat(e.target.name));
       
     if(result.length>=8){
